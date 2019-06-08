@@ -125,7 +125,6 @@ def recent_payments(request):
         resp.Payments[i].title = trace.title
         resp.Payments[i].price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
         i +=1
-        print(f'{completed_payment.id} added to responce')
     print('responce formed')
     s = resp.SerializeToString()
     print(f'responce content {s}')
