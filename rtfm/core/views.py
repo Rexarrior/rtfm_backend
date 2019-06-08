@@ -105,7 +105,7 @@ def recent_payments(request):
     print('stage 1')
     try:
         proto_request = other_proto.RecentPaymentsRequest()
-        proto_request.FromString(request.body)
+        proto_request = proto_request.FromString(request.body)
         print(f'body: {request.body}')
         client_id = proto_request.client_id
         print(f'client_id = {client_id}')
@@ -114,9 +114,9 @@ def recent_payments(request):
         resp = other_proto.RecentPaymentsResponce()
         print(f'start forming responce. Transactions count={len(transactions)}')
         for tran in transactions:
-            session = DriveSession.objects.get(session_id=tran.session_id)
-            transport = Transport.objects.get(tr_id=session.tr_id)
-            trace = Trace.objects.get(trace_id=session.trace_id)
+            session = tran.session_id
+            transport = session.tr_id
+            trace = session.trace_id
             completed_payment = other_proto.CompletedPayment()
             completed_payment.date = tran.time
             completed_payment.id = tran.transaction_id
