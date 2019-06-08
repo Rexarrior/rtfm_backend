@@ -23,6 +23,8 @@ class DriveSession(models.Model):
     start_time = models.PositiveIntegerField()
     end_time = models.PositiveIntegerField()
     is_continues = models.BooleanField()
+    trace_id = models.ForeignKey('Trace', on_delete=models.CASCADE, default=1)
+
     
 
 class TransportType(models.Model):
