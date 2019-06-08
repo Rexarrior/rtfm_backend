@@ -110,6 +110,7 @@ def recent_payments(request):
         transactions = Transaction.objects.filter(client_id=client_id,
                                                   ).order_by('-time')
         resp = other_proto.RecentPaymentsResponce()
+        print('start forming responce')
         for tran in transactions:
             if tran.value >= 0 :
                 continue  # КОСТЫЛЬ
@@ -124,7 +125,8 @@ def recent_payments(request):
             completed_payment.title = trace.title
             completed_payment.price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
             resp.Payments.add(completed_payment)
-        return HttpResponse(status=200, content=resp.SerializeToString())
+        print('responce formed')
+        return HttpResponse(resp.SerializeToString())
     except KeyError:
         return HttpResponseBadRequest()
               
