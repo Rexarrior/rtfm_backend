@@ -28,7 +28,7 @@ enum Status{
 message Transport
 {
     int64 tr_id = 1;
-    string tr_type = 2;
+    TransportType tr_type = 2;
 }
 
 
