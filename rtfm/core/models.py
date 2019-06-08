@@ -1,5 +1,4 @@
 from django.db import models as models
-from pb_model.models import ProtoBufMixin
 from core.proto_models import db_models_pb2 as proto
 
 
