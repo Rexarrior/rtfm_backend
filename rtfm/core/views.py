@@ -86,7 +86,7 @@ def transact(request):
         value = Trace.objects.get(trace_id=session.trace_id).cost
         client = Passenger.objects.get(client_id=proto_paiment.ClientID)
         transaction = Transaction(client_id=client,
-                                  session_id=session
+                                  session_id=session,
                                   value=value,
                                   time=int(time.time()),
                                   transaction_id=proto_paiment.TransactionID)
