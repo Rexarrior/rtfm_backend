@@ -25,14 +25,26 @@ for i in range(5):
                                    is_continues=False,
                                    end_time=int(time.time()))
             session.save()
+
+
+def make_transactions():
+    drivers = Driver.objects.all()
+    transports = Transport.objects.all()
+    clients = Passenger.objects.all()
+    statuses = [Status.objects.get(status_name="Success"),
+                Status.objects.get(status_name="Failed")]
+    sessions = DriveSession.objects.all()
+    for session in sessions:
+        for i in range(10):
             for client in clients:
-                tran = Transaction(client_id=client,
-                                    session_id=session,
-                                    value=rnd.randint(-100,100),
-                                    time=int(time.time()) + rnd.randint(-1000, 1000),
-                                    transaction_id=(i*10000 ) + rnd.randint(0,10000000),
-                                    status=statuses[rnd.randint(0,1)]
-                                    )
-                tran.save()
+                        tran = Transaction(client_id=client,
+                                            session_id=session,
+                                            value=rnd.randint(-100, 100),
+                                            time=int(time.time()) - rnd.randint(0, 72000*i),
+                                            transaction_id=(i*10000 ) + rnd.randint(0, 10000000),
+                                            status=statuses[rnd.randint(0, 1)]
+                                            )
+                        tran.save()
 
 
+make_transactions()
