@@ -119,8 +119,8 @@ def recent_payments(request):
         completed_payment = other_proto.CompletedPayment()
         completed_payment.date = tran.time
         completed_payment.id = tran.transaction_id
-        completed_payment.status = statusMap[tran.status][1]
-        completed_payment.type = transportTypeMap[transport.type]
+        completed_payment.status = statusMap[tran.status.status_name][1]
+        completed_payment.type = transportTypeMap[transport.type.transport_type]
         completed_payment.title = trace.title
         completed_payment.price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
         resp.Payments.add(completed_payment)
