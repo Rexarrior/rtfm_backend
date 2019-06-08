@@ -112,8 +112,6 @@ def recent_payments(request):
         resp = other_proto.RecentPaymentsResponce()
         print('start forming responce')
         for tran in transactions:
-            if tran.value >= 0 :
-                continue  # КОСТЫЛЬ
             session = DriveSession.objects.get(session_id=tran.session_id)
             transport = Transport.objects.get(tr_id=session.tr_id)
             trace = Trace.objects.get(trace_id=session.trace_id)
@@ -125,8 +123,11 @@ def recent_payments(request):
             completed_payment.title = trace.title
             completed_payment.price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
             resp.Payments.add(completed_payment)
+            print(f'{completed_payment.id} added to responce')
         print('responce formed')
-        return HttpResponse(resp.SerializeToString())
+        s = resp.SerializeToString()
+        print(f'responce content {s}')
+        return HttpResponse()
     except KeyError:
         return HttpResponseBadRequest()
               
