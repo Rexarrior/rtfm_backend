@@ -11,3 +11,5 @@ API:
 * IN ip:port/api/close_session GET {'session_id'=id of sessition to be closed} OUT: 200 OK
 
 * IN ip:port/api/valid_list GET OUT: 200 OK, ClientValidationList model 
+
+* IN ip:port/api/user_info POST UserInfoRequest OUT: 200 OK, UserInfoResponce
