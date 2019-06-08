@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/get_valid_list/', v.get_valid_list),
     path('api/transact/', v.transact),
     path('api/close_session/', v.close_session),
+    path('api/recent_payments/', v.recent_payments),
 ]
