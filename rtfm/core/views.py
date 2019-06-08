@@ -107,10 +107,11 @@ def recent_payments(request):
         proto_request = other_proto.RecentPaymentsRequest()
         proto_request.FromString(request.body)
         client_id = proto_request.client_id
+        print(f'client_id = {client_id}')
         transactions = Transaction.objects.filter(client_id=client_id,
                                                   ).order_by('-time')
         resp = other_proto.RecentPaymentsResponce()
-        print('start forming responce')
+        print(f'start forming responce. Transactions count={len(transactions)}')
         for tran in transactions:
             session = DriveSession.objects.get(session_id=tran.session_id)
             transport = Transport.objects.get(tr_id=session.tr_id)
