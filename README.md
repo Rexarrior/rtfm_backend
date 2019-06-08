@@ -2,7 +2,9 @@
 
 API:
 
-* IN: ip:port/api/transact  POST Transaction OUT: 200 OK, 403(forbidden) - No Money
+* IN: ip:port/api/transact  POST Payment OUT: 200 OK, 403(forbidden) - No Money
+
+* IN: ip:port/api/recent_payments GET RecentPaymentRequest OUT: 200 OK RecentPaymentResponce  
 
 * IN: ip:port/api/open_session GET {'driver_id'=id of driver, 'transport_id' = id of transport} OUT: 200 OK, {'session_id': id of opened session}
 
