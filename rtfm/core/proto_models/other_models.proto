@@ -31,3 +31,17 @@ message RecentPaymentsRequest {
 message RecentPaymentsResponce{
     repeated CompletedPayment Payments = 1;
 }
+
+message UserInfoRequest {
+    int64 client_id = 1; 
+}
+
+message UserInfoResponse {
+    enum PayStatus {
+        Available = 0;
+        Blocked = 1;
+    }
+    PayStatus status = 1;
+    string balance = 2;
+}
+
