@@ -103,35 +103,33 @@ def transact(request):
 
 def recent_payments(request):
     print('stage 1')
-    try:
-        proto_request = other_proto.RecentPaymentsRequest()
-        proto_request = proto_request.FromString(request.body)
-        print(f'body: {request.body}')
-        client_id = proto_request.client_id
-        print(f'client_id = {client_id}')
-        transactions = Transaction.objects.filter(client_id=client_id,
-                                                  ).order_by('-time')
-        resp = other_proto.RecentPaymentsResponce()
-        print(f'start forming responce. Transactions count={len(transactions)}')
-        for tran in transactions:
-            session = tran.session_id
-            transport = session.tr_id
-            trace = session.trace_id
-            completed_payment = other_proto.CompletedPayment()
-            completed_payment.date = tran.time
-            completed_payment.id = tran.transaction_id
-            completed_payment.status = statusMap[tran.status][1]
-            completed_payment.type = transportTypeMap[transport.type]
-            completed_payment.title = trace.title
-            completed_payment.price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
-            resp.Payments.add(completed_payment)
-            print(f'{completed_payment.id} added to responce')
-        print('responce formed')
-        s = resp.SerializeToString()
-        print(f'responce content {s}')
-        return HttpResponse()
-    except KeyError:
-        return HttpResponseBadRequest()
+    proto_request = other_proto.RecentPaymentsRequest()
+    proto_request = proto_request.FromString(request.body)
+    print(f'body: {request.body}')
+    client_id = proto_request.client_id
+    print(f'client_id = {client_id}')
+    transactions = Transaction.objects.filter(client_id=client_id,
+                                                ).order_by('-time')
+    resp = other_proto.RecentPaymentsResponce()
+    print(f'start forming responce. Transactions count={len(transactions)}')
+    for tran in transactions:
+        session = tran.session_id
+        transport = session.tr_id
+        trace = session.trace_id
+        completed_payment = other_proto.CompletedPayment()
+        completed_payment.date = tran.time
+        completed_payment.id = tran.transaction_id
+        completed_payment.status = statusMap[tran.status][1]
+        completed_payment.type = transportTypeMap[transport.type]
+        completed_payment.title = trace.title
+        completed_payment.price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
+        resp.Payments.add(completed_payment)
+        print(f'{completed_payment.id} added to responce')
+    print('responce formed')
+    s = resp.SerializeToString()
+    print(f'responce content {s}')
+    return HttpResponse(s)
+    
               
     
 def user_info(request):
