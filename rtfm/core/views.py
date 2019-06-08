@@ -41,7 +41,7 @@ def open_session(request):
         session.save()
         res = other_proto.SessionOpenResponce()
         res.session_id = session.session_id
-    return HttpResponse(res.SerializeToString())
+        return HttpResponse(res.SerializeToString())
     except KeyError:
         return HttpResponseBadRequest()
 
