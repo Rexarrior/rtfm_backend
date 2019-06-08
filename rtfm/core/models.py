@@ -41,7 +41,7 @@ class Transaction(models.Model):
     session_id = models.ForeignKey('DriveSession', 
                                    on_delete=models.CASCADE)
     transaction_id = models.IntegerField(primary_key=True)
-    value = models.FloatField()
+    value = models.IntegerField()
     time = models.PositiveIntegerField()
     status = models.ForeignKey('Status', on_delete=models.CASCADE)
 
