@@ -112,18 +112,19 @@ def recent_payments(request):
                                                 ).order_by('-time')
     resp = other_proto.RecentPaymentsResponce()
     print(f'start forming responce. Transactions count={len(transactions)}')
+    i = 0
     for tran in transactions:
+        resp.Payments.add()        
         session = tran.session_id
         transport = session.tr_id
         trace = session.trace_id
-        completed_payment = other_proto.CompletedPayment()
-        completed_payment.date = tran.time
-        completed_payment.id = tran.transaction_id
-        completed_payment.status = statusMap[tran.status.status_name][1]
-        completed_payment.type = transportTypeMap[transport.transportType.transport_type][1]
-        completed_payment.title = trace.title
-        completed_payment.price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
-        resp.Payments.add(completed_payment)
+        resp.Payments[i].date = tran.time
+        resp.Payments[i].id = tran.transaction_id
+        resp.Payments[i].status = statusMap[tran.status.status_name][1]
+        resp.Payments[i].type = transportTypeMap[transport.transportType.transport_type][1]
+        resp.Payments[i].title = trace.title
+        resp.Payments[i].price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
+        i +=1
         print(f'{completed_payment.id} added to responce')
     print('responce formed')
     s = resp.SerializeToString()
