@@ -24,7 +24,10 @@ message CompletedPayment{
     Status status = 6; 
 }
 
+message RecentPaymentsRequest {
+    int64 client_id = 1; 
+}
+
 message RecentPaymentsResponce{
     repeated CompletedPayment Payments = 1;
 }
-
