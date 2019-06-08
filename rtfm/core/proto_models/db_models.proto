@@ -3,7 +3,7 @@ syntax = "proto3";
 message Passenger {
     int64 client_id = 1;
     bool is_validated = 3;
-    double balance = 4;
+    int32 balance = 4;
     int64 fid_card = 5;
     uint32 register_date = 6;
 

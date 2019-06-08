@@ -5,7 +5,7 @@ from core.proto_models import db_models_pb2 as proto
 class Passenger(models.Model):
     client_id = models.AutoField(primary_key=True)
     is_validated = models.BooleanField()
-    balance = models.FloatField()
+    balance = models.IntegerField()
     fid_card = models.IntegerField()
     register_date = models.PositiveIntegerField()
  

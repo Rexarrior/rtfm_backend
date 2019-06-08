@@ -21,11 +21,33 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x12other_models.proto\x1a\x0f\x64\x62_models.proto\"{\n\x14\x43lientValidationList\x12\x33\n\x07\x43lients\x18\x01 \x03(\x0b\x32\".ClientValidationList.ClientsEntry\x1a.\n\x0c\x43lientsEntry\x12\x0b\n\x03key\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\"G\n\x07Payment\x12\x10\n\x08\x43lientID\x18\x01 \x01(\x03\x12\x15\n\rTransactionID\x18\x02 \x01(\x03\x12\x13\n\x0bTransportID\x18\x03 \x01(\x03\"\x81\x01\n\x10\x43ompletedPayment\x12\r\n\x05price\x18\x01 \x01(\t\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.TransportType\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\x05\x12\n\n\x02id\x18\x05 \x01(\x03\x12\x17\n\x06status\x18\x06 \x01(\x0e\x32\x07.Status\"*\n\x15RecentPaymentsRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"=\n\x16RecentPaymentsResponce\x12#\n\x08Payments\x18\x01 \x03(\x0b\x32\x11.CompletedPaymentb\x06proto3')
+  serialized_pb=_b('\n\x12other_models.proto\x1a\x0f\x64\x62_models.proto\"{\n\x14\x43lientValidationList\x12\x33\n\x07\x43lients\x18\x01 \x03(\x0b\x32\".ClientValidationList.ClientsEntry\x1a.\n\x0c\x43lientsEntry\x12\x0b\n\x03key\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\"G\n\x07Payment\x12\x10\n\x08\x43lientID\x18\x01 \x01(\x03\x12\x15\n\rTransactionID\x18\x02 \x01(\x03\x12\x13\n\x0bTransportID\x18\x03 \x01(\x03\"\x81\x01\n\x10\x43ompletedPayment\x12\r\n\x05price\x18\x01 \x01(\t\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.TransportType\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\x05\x12\n\n\x02id\x18\x05 \x01(\x03\x12\x17\n\x06status\x18\x06 \x01(\x0e\x32\x07.Status\"*\n\x15RecentPaymentsRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"=\n\x16RecentPaymentsResponce\x12#\n\x08Payments\x18\x01 \x03(\x0b\x32\x11.CompletedPayment\"$\n\x0fUserInfoRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"y\n\x10UserInfoResponse\x12+\n\x06status\x18\x01 \x01(\x0e\x32\x1b.UserInfoResponse.PayStatus\x12\x0f\n\x07\x62\x61lance\x18\x02 \x01(\t\"\'\n\tPayStatus\x12\r\n\tAvailable\x10\x00\x12\x0b\n\x07\x42locked\x10\x01\x62\x06proto3')
   ,
   dependencies=[db__models__pb2.DESCRIPTOR,])
 
 
+
+_USERINFORESPONSE_PAYSTATUS = _descriptor.EnumDescriptor(
+  name='PayStatus',
+  full_name='UserInfoResponse.PayStatus',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='Available', index=0, number=0,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='Blocked', index=1, number=1,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=596,
+  serialized_end=635,
+)
+_sym_db.RegisterEnumDescriptor(_USERINFORESPONSE_PAYSTATUS)
 
 
 _CLIENTVALIDATIONLIST_CLIENTSENTRY = _descriptor.Descriptor(
@@ -268,16 +290,90 @@ _RECENTPAYMENTSRESPONCE = _descriptor.Descriptor(
   serialized_end=474,
 )
 
+
+_USERINFOREQUEST = _descriptor.Descriptor(
+  name='UserInfoRequest',
+  full_name='UserInfoRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='client_id', full_name='UserInfoRequest.client_id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=476,
+  serialized_end=512,
+)
+
+
+_USERINFORESPONSE = _descriptor.Descriptor(
+  name='UserInfoResponse',
+  full_name='UserInfoResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='status', full_name='UserInfoResponse.status', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='balance', full_name='UserInfoResponse.balance', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _USERINFORESPONSE_PAYSTATUS,
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=514,
+  serialized_end=635,
+)
+
 _CLIENTVALIDATIONLIST_CLIENTSENTRY.containing_type = _CLIENTVALIDATIONLIST
 _CLIENTVALIDATIONLIST.fields_by_name['Clients'].message_type = _CLIENTVALIDATIONLIST_CLIENTSENTRY
 _COMPLETEDPAYMENT.fields_by_name['type'].enum_type = db__models__pb2._TRANSPORTTYPE
 _COMPLETEDPAYMENT.fields_by_name['status'].enum_type = db__models__pb2._STATUS
 _RECENTPAYMENTSRESPONCE.fields_by_name['Payments'].message_type = _COMPLETEDPAYMENT
+_USERINFORESPONSE.fields_by_name['status'].enum_type = _USERINFORESPONSE_PAYSTATUS
+_USERINFORESPONSE_PAYSTATUS.containing_type = _USERINFORESPONSE
 DESCRIPTOR.message_types_by_name['ClientValidationList'] = _CLIENTVALIDATIONLIST
 DESCRIPTOR.message_types_by_name['Payment'] = _PAYMENT
 DESCRIPTOR.message_types_by_name['CompletedPayment'] = _COMPLETEDPAYMENT
 DESCRIPTOR.message_types_by_name['RecentPaymentsRequest'] = _RECENTPAYMENTSREQUEST
 DESCRIPTOR.message_types_by_name['RecentPaymentsResponce'] = _RECENTPAYMENTSRESPONCE
+DESCRIPTOR.message_types_by_name['UserInfoRequest'] = _USERINFOREQUEST
+DESCRIPTOR.message_types_by_name['UserInfoResponse'] = _USERINFORESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ClientValidationList = _reflection.GeneratedProtocolMessageType('ClientValidationList', (_message.Message,), {
@@ -322,6 +418,20 @@ RecentPaymentsResponce = _reflection.GeneratedProtocolMessageType('RecentPayment
   # @@protoc_insertion_point(class_scope:RecentPaymentsResponce)
   })
 _sym_db.RegisterMessage(RecentPaymentsResponce)
+
+UserInfoRequest = _reflection.GeneratedProtocolMessageType('UserInfoRequest', (_message.Message,), {
+  'DESCRIPTOR' : _USERINFOREQUEST,
+  '__module__' : 'other_models_pb2'
+  # @@protoc_insertion_point(class_scope:UserInfoRequest)
+  })
+_sym_db.RegisterMessage(UserInfoRequest)
+
+UserInfoResponse = _reflection.GeneratedProtocolMessageType('UserInfoResponse', (_message.Message,), {
+  'DESCRIPTOR' : _USERINFORESPONSE,
+  '__module__' : 'other_models_pb2'
+  # @@protoc_insertion_point(class_scope:UserInfoResponse)
+  })
+_sym_db.RegisterMessage(UserInfoResponse)
 
 
 _CLIENTVALIDATIONLIST_CLIENTSENTRY._options = None

@@ -21,6 +21,10 @@ transportTypeMap ={
     'Subway': ('Subway', 3),
 }
 
+payStatusMap = {
+    'Available':0,
+    'Blocked':1,
+}
 
 @require_http_methods(["GET"])
 def open_session(request):
@@ -97,15 +101,15 @@ def transact(request):
         return HttpResponseBadRequest()
 
 
-@require_http_methods(["GET"])
 def recent_payments(request):
+    print('stage 1')
     try:
         proto_request = other_proto.RecentPaymentsRequest()
         proto_request.FromString(request.body)
         client_id = proto_request.client_id
         transactions = Transaction.objects.filter(client_id=client_id,
                                                   ).order_by('-time')
-        resent_payments = other_proto.RecentPaymentsResponce()
+        resp = other_proto.RecentPaymentsResponce()
         for tran in transactions:
             if tran.value >= 0 :
                 continue  # КОСТЫЛЬ
@@ -119,10 +123,20 @@ def recent_payments(request):
             completed_payment.type = transportTypeMap[transport.type]
             completed_payment.title = trace.title
             completed_payment.price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
-            resent_payments.Payments.add(completed_payment)
-        return HttpResponse(status=200, content=recent_payments.SerializeToString())
+            resp.Payments.add(completed_payment)
+        return HttpResponse(status=200, content=resp.SerializeToString())
     except KeyError:
         return HttpResponseBadRequest()
-
-                                            
+              
     
+def user_info(request):
+    req = other_proto.UserInfoRequest()
+    req.FromString(request)
+    client = Passenger.objects.get(client_id=req.client_id)
+    res = other_proto.UserInfoResponse()
+    if client.is_validated: 
+        res.status = payStatusMap['Available']
+    else:
+        res.status = payStatusMap['Blocked']
+    res.balance = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'  
+    return HttpResponse(status=200, content=res.SerializeToString())
