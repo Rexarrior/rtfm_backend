@@ -106,6 +106,7 @@ def recent_payments(request):
     try:
         proto_request = other_proto.RecentPaymentsRequest()
         proto_request.FromString(request.body)
+        print(f'body: {request.body}')
         client_id = proto_request.client_id
         print(f'client_id = {client_id}')
         transactions = Transaction.objects.filter(client_id=client_id,
