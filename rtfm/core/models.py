@@ -4,43 +4,55 @@ from core.proto_models import db_models_pb2 as proto
 
 
 class Passenger(models.Model):
-    pb_model = proto.Passenger
-    client_id = models.IntegerField()
-    is_validated = models.IntegerField()
+    client_id = models.AutoField(primary_key=True)
+    is_validated = models.BooleanField()
     balance = models.FloatField()
     fid_card = models.IntegerField()
     register_date = models.PositiveIntegerField()
  
 
 class Driver(models.Model):
-    pb_model = proto.Driver
-    driver_id = models.IntegerField()
+    driver_id = models.AutoField(primary_key=True)
 
 
 class DriveSession(models.Model):
-    pb_model = proto.DriveSession
-    session_id = models.IntegerField()
-    driver_id = models.IntegerField()
-    transport_id = models.IntegerField()
+    session_id = models.AutoField(primary_key=True)
+    driver_id = models.ForeignKey('Driver', 
+                                  on_delete=models.CASCADE)
+    tr_id = models.ForeignKey('Transport',
+                              on_delete=models.CASCADE)
     start_time = models.PositiveIntegerField()
     end_time = models.PositiveIntegerField()
+    is_continues = models.BooleanField()
     
 
+class TransportType(models.Model):
+    transport_type = models.CharField(max_length=50)
+
+
 class Transport(models.Model):
-    pb_model = proto.Transport
-    tr_id = models.IntegerField()
+    tr_id = models.AutoField(primary_key=True)
+    transportType = models.ForeignKey('TransportType',
+                                      on_delete=models.CASCADE)
 
 
-class Transaction( models.Model):
-    pb_model = proto.Transaction
-    client_id = models.IntegerField()
-    session_id = models.IntegerField()
+class Transaction(models.Model):
+    client_id = models.ForeignKey('Passenger', 
+                                  on_delete=models.CASCADE)
+    session_id = models.ForeignKey('DriveSession', 
+                                   on_delete=models.CASCADE)
+    transaction_id = models.IntegerField(primary_key=True)
     value = models.FloatField()
     time = models.PositiveIntegerField()
+    status = models.ForeignKey('Status', on_delete=models.CASCADE)
 
 
 class Trace(models.Model):
-    pb_model = proto.Trace
-    trace_id = models.IntegerField()
+    trace_id = models.AutoField(primary_key=True)
     cost = models.FloatField()
+    title = models.CharField(max_length=50)
+
+
+class Status(models.Model):
+    status_name = models.CharField(max_length=50)
 

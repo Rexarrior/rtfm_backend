@@ -16,6 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from core.views import *
+import core.views as v
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/close_session/', v.close_session),
+    path('api/open_session/', v.open_session),
+    path('api/get_valid_list/', v.get_valid_list),
+    path('api/transact/', v.transact),
+    path('api/close_session/', v.close_session),
 ]
