@@ -28,7 +28,7 @@ urlpatterns = [
     path('api/transact', v.transact),
     path('api/close_session/', v.close_session),
     path('api/recent_payments', v.recent_payments),
-    path('api/user_info', v.recent_payments),
+    path('api/user_info', v.user_info),
     path('api/price', v.get_price),
     path('api/sync_transactions', v.sync_payments),
     path('api/refil', v.refil),
