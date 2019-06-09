@@ -9,13 +9,13 @@ from django.conf import settings
 from core.models import *
 import random as rnd
 
-for i in range(3):
+for i in range(10):
     p = Passenger(is_validated=True, balance=rnd.randint(0, 100000),
                   register_date=rnd.randint(1000000, 3000000),
                   fid_card=rnd.randint(10000, 10000000))
     p.save()
 
-for i in range(10):
+for i in range(50):
     t = Trace(cost=500*rnd.randint(3, 25),
               title=f'Маршрут № {rnd.randint(10, 100)}')
     t.save()
@@ -31,7 +31,7 @@ T.save()
 T = TransportType(transport_type="Subway")
 T.save()
 tr_types = TransportType.objects.all()
-for i in range(10):
+for i in range(100):
     t = Transport(transportType=rnd.choice(tr_types))
     t.save()
 

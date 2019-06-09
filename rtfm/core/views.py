@@ -35,8 +35,8 @@ def make_str_from_price(price):
 
 
 def apply_payment(payment):
-    if (Transaction.objects.filter(transaction_id=payment.TransactionID).\
-        exists()):
+    if (not Transaction.objects.filter(transaction_id=payment.TransactionID).\
+            exists()):
         session = DriveSession.objects.get(tr_id=payment.TransportID,
                                            is_continues=True)
         value = Trace.objects.get(trace_id=session.trace_id).cost
@@ -56,9 +56,9 @@ def apply_payment(payment):
             if client.balance < CLIENT_MIN_BALANCE:
                 client.is_validate = False
             client.save()
-            transaction.status = statusMap['Success'][0]
-            transaction.save()
-            return HttpResponse()
+        transaction.status = statusMap['Success'][0]
+        transaction.save()
+    return HttpResponse()
 
 
 def open_session(request):
@@ -212,7 +212,7 @@ def refil(request):
     req = req.FromString(request.body)
     client = Passenger.objects.get(client_id=req.client_id)
     client.balance += req.value
-    if (clien.balance > CLIENT_MIN_BALANCE):
+    if (client.balance > CLIENT_MIN_BALANCE):
         client.is_validated = True
     client.save()
     return HttpResponse()

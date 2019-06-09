@@ -5,7 +5,6 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rtfm.settings')
 django.setup()
 
-from django.conf import settings
 from core.models import *
 import random as rnd
 import time
@@ -19,7 +18,7 @@ def make_sessions():
                 Status.objects.get(status_name="Failed")]
     traces = Trace.objects.all()
     for driver in drivers:
-            for i in range(1, 6):
+            for i in range(1, 10):
                 trace = rnd.choice(traces)
                 session = DriveSession(driver_id=driver,
                                         tr_id=rnd.choice(transports),
