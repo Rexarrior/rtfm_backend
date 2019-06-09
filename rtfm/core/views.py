@@ -31,7 +31,7 @@ payStatusMap = {
 
 
 def make_str_from_price(price):
-    return f'{int(price / 100)} руб. {price % 100} коп.'
+    return f'{int(price / 100)} руб. {int(price % 100)} коп.'
 
 
 def apply_payment(payment):
@@ -167,7 +167,7 @@ def get_price(request):
                                        is_continues=True)
     value = session.trace_id.cost
     res = other_proto.GetPriceResponse()
-    res.price = make_str_from_price(value)
+    res.Price = make_str_from_price(value)
     res.session_id = session.session_id
     return HttpResponse(res.SerializeToString())
 
