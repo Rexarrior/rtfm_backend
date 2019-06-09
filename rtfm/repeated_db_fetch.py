@@ -19,11 +19,10 @@ def make_sessions():
                 Status.objects.get(status_name="Failed")]
     traces = Trace.objects.all()
     for driver in drivers:
-        for transport in transports:
-            for i in range(10):
+            for i in range(15):
                 trace = rnd.choice(traces)
                 session = DriveSession(driver_id=driver,
-                                        tr_id=transport,
+                                        tr_id=rnd.choice(transports),
                                         start_time=int(time.time()-86000*i),
                                         is_continues=False,
                                         end_time=int(time.time()), 

@@ -30,6 +30,9 @@ payStatusMap = {
 }
 
 
+def make_str_from_price(price):
+    return f'{int(price / 100)} руб. {price % 100} коп.'
+
 def open_session(request):
     try:
         req = other_proto.SessionOpenRequest()
@@ -128,7 +131,7 @@ def recent_payments(request):
         resp.Payments[i].status = statusMap[tran.status.status_name][1]
         resp.Payments[i].type = transportTypeMap[transport.transportType.transport_type][1]
         resp.Payments[i].title = trace.title
-        resp.Payments[i].price = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
+        resp.Payments[i].price = make_str_from_price(trace.cost)
         i += 1
     s = resp.SerializeToString()
     return HttpResponse(s)
@@ -144,7 +147,18 @@ def user_info(request):
         res.status = payStatusMap['Available']
     else:
         res.status = payStatusMap['Blocked']
-    res.balance = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
+    res.balance = make_str_from_price(client.balance)
+    return HttpResponse(res.SerializeToString())
+
+
+def get_price(request):
+    req = other_proto.GetPriceRequest()
+    req = req.FromString(request.body)
+    session = DriveSession.objects.get(tr_id=req.transport_id,
+                                       is_continues=True)
+    value = session.trace_id.cost
+    res = other_proto.GetPriceResponse()
+    res.price = make_str_from_price(value)
     return HttpResponse(res.SerializeToString())
 
 
@@ -153,11 +167,10 @@ def index_page(request):
                              'rb'))
 
 
-
 def static_delivery(request, path=""):
     print(f"serve static {path}")
-    if os.path.isfile(BASE_DIR + 'static/rtfm_front/' + path):
-        response = FileResponse(open(BASE_DIR+'static/rtfm_front/' + path, 'rb'))
+    if os.path.isfile(BASE_DIR + 'static/rtfm_front/resources/' + path):
+        response = FileResponse(open(BASE_DIR+'static/rtfm_front/resources/' + path, 'rb'))
         if 'css'in path:
             response['Content-Type'] = 'text/css'
         if 'js' in path:

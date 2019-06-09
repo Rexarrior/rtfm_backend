@@ -59,3 +59,11 @@ message SessionOpenResponce{
 message SessionCloseRequest{
     int32 session_id = 1;
 }
+
+message GetPriceRequest{
+    int32 transport_id = 1;
+}
+
+message GetPriceResponse{
+    string Price = 1;
+}

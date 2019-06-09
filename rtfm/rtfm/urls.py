@@ -30,5 +30,5 @@ urlpatterns = [
     path('api/recent_payments', v.recent_payments),
     path('api/user_info', v.recent_payments),
     path('', v.index_page),
-    re_path(r'^resources/(?P<path>.*)/$', v.static_delivery)
+    path(r'resources/<path:path>', v.static_delivery)
 ] 

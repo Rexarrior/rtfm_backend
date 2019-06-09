@@ -20,14 +20,17 @@ for i in range(10):
 
 T = TransportType(transport_type="Bus")
 T.save()
-t = Transport(transportType=T)
-t.save()
+
 T = TransportType(transport_type="МТ")
 T.save()
 T = TransportType(transport_type="Taxy")
 T.save()
 T = TransportType(transport_type="Subway")
 T.save()
+tr_types = TransportType.objects.all()
+for i in range(10):
+    t = Transport(transportType=rnd.choice(tr_types))
+    t.save()
 
 S = Status(status_name="Success")
 S.save()
