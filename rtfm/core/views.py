@@ -13,15 +13,15 @@ from rtfm.settings import BASE_DIR
 CLIENT_MIN_BALANCE = 0
 
 statusMap = {
-    'Success': ('Success', 0),
-    'Failed': ('Failed', 1)
+    'Success': (Status.objects.get(status_name='Success'), 0),
+    'Failed': (Status.objects.get(status_name='Failed'), 1)
 }
 
 transportTypeMap = {
-    'Bus': ('Bus', 0),
-    'МТ': ('МТ', 1),
-    'Taxy': ('Taxy', 2),
-    'Subway': ('Subway', 3),
+    'Bus': (TransportType.objects.get(transport_type='Bus'), 0),
+    'МТ': (TransportType.objects.get(transport_type='МТ'), 1),
+    'Taxy': (TransportType.objects.get(transport_type='Taxy'), 2),
+    'Subway': (TransportType.objects.get(transport_type='Subway'), 3),
 }
 
 payStatusMap = {
@@ -48,13 +48,13 @@ def apply_payment(payment):
                                   transaction_id=payment.TransactionID)
         if (transaction.client_id is not None):
             client = transaction.client_id
-            if (not client.is_validate):
+            if (not client.is_validated):
                 transaction.status = statusMap['Failed'][0]
                 transaction.save()
                 return HttpResponseForbidden()
             client.balance += transaction.value
             if client.balance < CLIENT_MIN_BALANCE:
-                client.is_validate = False
+                client.is_validated = False
             client.save()
         transaction.status = statusMap['Success'][0]
         transaction.save()
