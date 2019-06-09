@@ -56,7 +56,7 @@ def make_transactions():
     sessions = DriveSession.objects.all()
     
     for client in clients:
-        for j in range(100):
+        for j in range(10):
             for i in range(rnd.randint(1, 4)):
                 session = rnd.choice(sessions)
                 value = session.trace_id.cost

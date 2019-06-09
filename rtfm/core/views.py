@@ -162,6 +162,7 @@ def user_info(request):
 def get_price(request):
     req = other_proto.GetPriceRequest()
     req = req.FromString(request.body)
+    print(f'{req.transport_id}')
     session = DriveSession.objects.get(tr_id=req.transport_id,
                                        is_continues=True)
     value = session.trace_id.cost

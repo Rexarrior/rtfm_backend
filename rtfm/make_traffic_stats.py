@@ -11,8 +11,10 @@ from core.models import *
 with open('report.csv', 'wt', encoding='utf-8') as f:
     f.write('Название маршрута;Дата;Период сессии; Пассажиропоток;\n')
     traces = Trace.objects.all()
+    print(f'traces count={len(traces)}')
     for trace in traces:
         sessions = DriveSession.objects.filter(trace_id=trace).filter(is_continues=False)
+        print(f'sessions count = {len(sessions)}')
         for session in sessions:
             start_time = datetime.datetime.fromtimestamp(session.start_time)
             end_time = datetime.datetime.fromtimestamp(session.end_time)
@@ -21,4 +23,6 @@ with open('report.csv', 'wt', encoding='utf-8') as f:
             start_time = start_time.strftime('%H:%M')
             end_time = end_time.strftime('%H:%M')
             timestring = f'{start_time} - {end_time}'
-            f.write(f'{trace.title};{date};{timestring};{count}\n')
+            s = f'{trace.title};{date};{timestring};{count}\n'
+            print(s)
+            f.write(s)
