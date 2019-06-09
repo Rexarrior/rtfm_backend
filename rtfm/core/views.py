@@ -83,7 +83,7 @@ def open_session(request):
 def close_session(request):
     try:
         req = other_proto.SessionCloseRequest()
-        req = req.FromString()
+        req = req.FromString(request.body)
         session = DriveSession.objects.get(session_id=req.session_id)
         session.is_continues = False
         session.end_time = int(time.time())
@@ -144,7 +144,7 @@ def recent_payments(request):
 
 def user_info(request):
     req = other_proto.UserInfoRequest()
-    req = req.FromString(request)
+    req = req.FromString(request.body)
     client = Passenger.objects.get(client_id=req.client_id)
     res = other_proto.UserInfoResponse()
     if client.is_validated: 
@@ -197,7 +197,7 @@ def static_delivery(request, path=""):
 
 def sync_payments(request):
     req = other_proto.TransactionSyncRequest()
-    req = req.FromString(request)
+    req = req.FromString(request.body)
     for payment in req.Payments:
         apply_payment(payment)
     return HttpResponse()
@@ -205,7 +205,7 @@ def sync_payments(request):
 
 def refil(request):
     req = other_proto.RefilRequest()
-    req = req.FromString(request)
+    req = req.FromString(request.body)
     client = Passenger.objects.get(client_id=req.client_id)
     client.balance += req.value
     if (clien.balance > CLIENT_MIN_BALANCE):
