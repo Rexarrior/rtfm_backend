@@ -39,7 +39,7 @@ def apply_payment(payment):
             exists()):
         session = DriveSession.objects.get(tr_id=payment.TransportID,
                                            is_continues=True)
-        value = Trace.objects.get(trace_id=session.trace_id.trace_id).cost
+        value = session.trace_id.cost
         client = Passenger.objects.get(client_id=payment.ClientID)
         transaction = Transaction(client_id=client,
                                   session_id=session,
@@ -47,7 +47,7 @@ def apply_payment(payment):
                                   time=int(time.time()),
                                   transaction_id=payment.TransactionID)
         if (transaction.client_id is not None):
-            client = Passenger.objects.get(client_id=transaction.client_id)
+            client = transaction.client_id
             if (not client.is_validate):
                 transaction.status = statusMap['Failed'][0]
                 transaction.save()
