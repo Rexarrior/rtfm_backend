@@ -167,6 +167,7 @@ def get_price(request):
     value = session.trace_id.cost
     res = other_proto.GetPriceResponse()
     res.price = make_str_from_price(value)
+    res.session_id = session.session_id
     return HttpResponse(res.SerializeToString())
 
 

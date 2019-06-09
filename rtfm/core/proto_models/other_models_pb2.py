@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x12other_models.proto\x1a\x0f\x64\x62_models.proto\"{\n\x14\x43lientValidationList\x12\x33\n\x07\x43lients\x18\x01 \x03(\x0b\x32\".ClientValidationList.ClientsEntry\x1a.\n\x0c\x43lientsEntry\x12\x0b\n\x03key\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\"G\n\x07Payment\x12\x10\n\x08\x43lientID\x18\x01 \x01(\x03\x12\x15\n\rTransactionID\x18\x02 \x01(\x03\x12\x13\n\x0bTransportID\x18\x03 \x01(\x03\"\x81\x01\n\x10\x43ompletedPayment\x12\r\n\x05price\x18\x01 \x01(\t\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.TransportType\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\x05\x12\n\n\x02id\x18\x05 \x01(\x03\x12\x17\n\x06status\x18\x06 \x01(\x0e\x32\x07.Status\"*\n\x15RecentPaymentsRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"=\n\x16RecentPaymentsResponce\x12#\n\x08Payments\x18\x01 \x03(\x0b\x32\x11.CompletedPayment\"$\n\x0fUserInfoRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"y\n\x10UserInfoResponse\x12+\n\x06status\x18\x01 \x01(\x0e\x32\x1b.UserInfoResponse.PayStatus\x12\x0f\n\x07\x62\x61lance\x18\x02 \x01(\t\"\'\n\tPayStatus\x12\r\n\tAvailable\x10\x00\x12\x0b\n\x07\x42locked\x10\x01\"O\n\x12SessionOpenRequest\x12\x11\n\tdriver_id\x18\x01 \x01(\x05\x12\x14\n\x0ctransport_id\x18\x02 \x01(\x05\x12\x10\n\x08trace_id\x18\x03 \x01(\x05\")\n\x13SessionOpenResponce\x12\x12\n\nsession_id\x18\x01 \x01(\x05\")\n\x13SessionCloseRequest\x12\x12\n\nsession_id\x18\x01 \x01(\x05\"\'\n\x0fGetPriceRequest\x12\x14\n\x0ctransport_id\x18\x01 \x01(\x05\"!\n\x10GetPriceResponse\x12\r\n\x05Price\x18\x01 \x01(\t\"4\n\x16TransactionSyncRequest\x12\x1a\n\x08Payments\x18\x01 \x03(\x0b\x32\x08.Payment\"0\n\x0cRefilRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x05\"G\n\x10TrafficStatPoint\x12\x12\n\nstart_time\x18\x01 \x01(\r\x12\x10\n\x08\x65nd_time\x18\x02 \x01(\r\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\"J\n\x14TrafficStatsResponce\x12\x10\n\x08trace_id\x18\x01 \x01(\x05\x12 \n\x05Stats\x18\x02 \x03(\x0b\x32\x11.TrafficStatPoint\"\'\n\x13TrafficStatsRequest\x12\x10\n\x08trace_id\x18\x01 \x01(\x05\x62\x06proto3')
+  serialized_pb=_b('\n\x12other_models.proto\x1a\x0f\x64\x62_models.proto\"{\n\x14\x43lientValidationList\x12\x33\n\x07\x43lients\x18\x01 \x03(\x0b\x32\".ClientValidationList.ClientsEntry\x1a.\n\x0c\x43lientsEntry\x12\x0b\n\x03key\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\"G\n\x07Payment\x12\x10\n\x08\x43lientID\x18\x01 \x01(\x03\x12\x15\n\rTransactionID\x18\x02 \x01(\x03\x12\x13\n\x0bTransportID\x18\x03 \x01(\x03\"\x81\x01\n\x10\x43ompletedPayment\x12\r\n\x05price\x18\x01 \x01(\t\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.TransportType\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\x05\x12\n\n\x02id\x18\x05 \x01(\x03\x12\x17\n\x06status\x18\x06 \x01(\x0e\x32\x07.Status\"*\n\x15RecentPaymentsRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"=\n\x16RecentPaymentsResponce\x12#\n\x08Payments\x18\x01 \x03(\x0b\x32\x11.CompletedPayment\"$\n\x0fUserInfoRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"y\n\x10UserInfoResponse\x12+\n\x06status\x18\x01 \x01(\x0e\x32\x1b.UserInfoResponse.PayStatus\x12\x0f\n\x07\x62\x61lance\x18\x02 \x01(\t\"\'\n\tPayStatus\x12\r\n\tAvailable\x10\x00\x12\x0b\n\x07\x42locked\x10\x01\"O\n\x12SessionOpenRequest\x12\x11\n\tdriver_id\x18\x01 \x01(\x05\x12\x14\n\x0ctransport_id\x18\x02 \x01(\x05\x12\x10\n\x08trace_id\x18\x03 \x01(\x05\")\n\x13SessionOpenResponce\x12\x12\n\nsession_id\x18\x01 \x01(\x05\")\n\x13SessionCloseRequest\x12\x12\n\nsession_id\x18\x01 \x01(\x05\"\'\n\x0fGetPriceRequest\x12\x14\n\x0ctransport_id\x18\x01 \x01(\x05\"5\n\x10GetPriceResponse\x12\r\n\x05Price\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\x05\"4\n\x16TransactionSyncRequest\x12\x1a\n\x08Payments\x18\x01 \x03(\x0b\x32\x08.Payment\"0\n\x0cRefilRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x05\"G\n\x10TrafficStatPoint\x12\x12\n\nstart_time\x18\x01 \x01(\r\x12\x10\n\x08\x65nd_time\x18\x02 \x01(\r\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\"J\n\x14TrafficStatsResponce\x12\x10\n\x08trace_id\x18\x01 \x01(\x05\x12 \n\x05Stats\x18\x02 \x03(\x0b\x32\x11.TrafficStatPoint\"\'\n\x13TrafficStatsRequest\x12\x10\n\x08trace_id\x18\x01 \x01(\x05\x62\x06proto3')
   ,
   dependencies=[db__models__pb2.DESCRIPTOR,])
 
@@ -513,6 +513,13 @@ _GETPRICERESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='session_id', full_name='GetPriceResponse.session_id', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -526,7 +533,7 @@ _GETPRICERESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=845,
-  serialized_end=878,
+  serialized_end=898,
 )
 
 
@@ -556,8 +563,8 @@ _TRANSACTIONSYNCREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=880,
-  serialized_end=932,
+  serialized_start=900,
+  serialized_end=952,
 )
 
 
@@ -594,8 +601,8 @@ _REFILREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=934,
-  serialized_end=982,
+  serialized_start=954,
+  serialized_end=1002,
 )
 
 
@@ -639,8 +646,8 @@ _TRAFFICSTATPOINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=984,
-  serialized_end=1055,
+  serialized_start=1004,
+  serialized_end=1075,
 )
 
 
@@ -677,8 +684,8 @@ _TRAFFICSTATSRESPONCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1057,
-  serialized_end=1131,
+  serialized_start=1077,
+  serialized_end=1151,
 )
 
 
@@ -708,8 +715,8 @@ _TRAFFICSTATSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1133,
-  serialized_end=1172,
+  serialized_start=1153,
+  serialized_end=1192,
 )
 
 _CLIENTVALIDATIONLIST_CLIENTSENTRY.containing_type = _CLIENTVALIDATIONLIST
