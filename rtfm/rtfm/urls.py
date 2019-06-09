@@ -29,6 +29,7 @@ urlpatterns = [
     path('api/close_session/', v.close_session),
     path('api/recent_payments', v.recent_payments),
     path('api/user_info', v.recent_payments),
+    path('api/price', v.get_price),
     path('', v.index_page),
     path(r'resources/<path:path>', v.static_delivery)
 ] 
