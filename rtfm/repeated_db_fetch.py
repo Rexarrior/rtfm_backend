@@ -52,5 +52,5 @@ def make_transactions():
                                         )
                     tran.save()
 
-# make_sessions()
+make_sessions()
 make_transactions()

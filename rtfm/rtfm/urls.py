@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import re_path, path
 from core.views import *
 import core.views as v
 from django.conf import settings
@@ -29,4 +29,6 @@ urlpatterns = [
     path('api/close_session/', v.close_session),
     path('api/recent_payments', v.recent_payments),
     path('api/user_info', v.recent_payments),
+    path('', v.index_page),
+    re_path(r'^resources/(?P<path>.*)/$', v.static_delivery)
 ] 

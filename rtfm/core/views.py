@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest,\
-                        HttpResponseForbidden
+                        HttpResponseForbidden, HttpResponseNotFound,\
+                        FileResponse
 from django.views.decorators.http import require_http_methods
 
 from core.models import *
 import time
 import json
+import os
 import core.proto_models.other_models_pb2 as other_proto
+from rtfm.settings import BASE_DIR
 CLIENT_MIN_BALANCE = 0
 
 statusMap = {
@@ -114,6 +117,7 @@ def recent_payments(request):
                                                 ).order_by('-time')
     resp = other_proto.RecentPaymentsResponce()
     i = 0
+    print(f'id: {client_id};  len: {len(transactions)};')
     for tran in transactions:
         resp.Payments.add()        
         session = tran.session_id
@@ -142,3 +146,24 @@ def user_info(request):
         res.status = payStatusMap['Blocked']
     res.balance = f'{int(trace.cost / 100)} руб. {trace.cost % 100} коп.'
     return HttpResponse(res.SerializeToString())
+
+
+def index_page(request):
+    return FileResponse(open(os.path.join(BASE_DIR, r"static/rtfm_front/index.html"),
+                             'rb'))
+
+
+
+def static_delivery(request, path=""):
+    print(f"serve static {path}")
+    if os.path.isfile(BASE_DIR + 'static/rtfm_front/' + path):
+        response = FileResponse(open(BASE_DIR+'static/rtfm_front/' + path, 'rb'))
+        if 'css'in path:
+            response['Content-Type'] = 'text/css'
+        if 'js' in path:
+            response['Content-Type'] = 'text/javascript'
+
+    else:
+        response = HttpResponseNotFound()
+    return response
+
