@@ -59,11 +59,11 @@ def make_transactions():
     for client in clients:
         for j in range(100):
             for i in range(rnd.randint(1, 4)):
+                session = rnd.choice(sessions)
                 value = session.trace_id.cost
                 time = session.start_time - 86400 * j +\
                                 rnd.randint(0, 36000)
                 tran_id = (i * 10000) + rnd.randint(0, 10000000)
-                session = rnd.choice(sessions)
                 tran = Transaction(client_id=client,
                                     session_id=session,
                                     value=value,
