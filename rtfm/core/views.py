@@ -216,3 +216,18 @@ def refil(request):
         client.is_validated = True
     client.save()
     return HttpResponse()
+
+def traffic_stats(request):
+    req = other_proto.TrafficStatsRequest()
+    req = req.FromString(request.body)
+    trace = Trace.objects.get(trace_id = req.trace_id)
+    sessions = DriveSession.objects.filter(trace_id = trace).filter(is_continues = False)
+    res = other_proto.TrafficStatsResponce()
+    i = 0
+    for session in sessions:
+        res.Stats.add()
+        res.Stats[i].start_time = session.start_time
+        res.Stats[i].end_time = session.end_time
+        res.Stats[i].count = len(Transaction.objects.filter(session_id = session))
+        i += 1
+    return HttpResponse(res.SerializeToString(res))
