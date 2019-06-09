@@ -13,3 +13,5 @@ API:
 * IN ip:port/api/valid_list GET OUT: 200 OK, ClientValidationList model 
 
 * IN ip:port/api/user_info POST UserInfoRequest OUT: 200 OK, UserInfoResponce
+
+* IN ip:port/api/price POST GetPriceRequest OUT: 200 OK, GetPriceResponce
