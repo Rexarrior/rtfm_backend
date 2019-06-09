@@ -19,13 +19,13 @@ def make_sessions():
                 Status.objects.get(status_name="Failed")]
     traces = Trace.objects.all()
     for driver in drivers:
-            for i in range(15):
+            for i in range(1, 6):
                 trace = rnd.choice(traces)
                 session = DriveSession(driver_id=driver,
                                         tr_id=rnd.choice(transports),
-                                        start_time=int(time.time()-86000*i),
+                                        start_time=int(time.time() - 43000 * i),
                                         is_continues=False,
-                                        end_time=int(time.time()), 
+                                        end_time=int(time.time() - 43000 * (i - 1)),
                                         trace_id=trace)
                 session.save()
 
@@ -61,8 +61,10 @@ def make_transactions():
             for i in range(rnd.randint(1, 4)):
                 session = rnd.choice(sessions)
                 value = session.trace_id.cost
-                time = session.start_time - 86400 * j +\
-                                rnd.randint(0, 36000)
+                if (session.end_time  is not None):
+                    time = session.start_time  + rnd.randint(0, session.end_time - session.start_time)
+                else:
+                    time = session.start_time  + rnd.randint(0, int(time.time()) - session.start_time)
                 tran_id = (i * 10000) + rnd.randint(0, 10000000)
                 tran = Transaction(client_id=client,
                                     session_id=session,
