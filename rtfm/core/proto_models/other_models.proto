@@ -77,7 +77,7 @@ message TransactionSyncRequest{
 }
 
 message RefilRequest{
-    int32 client_id = 1 ;
+    int64 client_id = 1 ;
     int32 value = 2;
 }
 
