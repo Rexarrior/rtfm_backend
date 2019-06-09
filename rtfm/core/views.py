@@ -41,8 +41,8 @@ def apply_payment(payment):
                                            is_continues=True)
         value = Trace.objects.get(trace_id=session.trace_id.trace_id).cost
         client = Passenger.objects.get(client_id=payment.ClientID)
-        transaction = Transaction(client_id=client.client_id,
-                                  session_id=session.session_id,
+        transaction = Transaction(client_id=client,
+                                  session_id=session,
                                   value=value,
                                   time=int(time.time()),
                                   transaction_id=payment.TransactionID)
