@@ -10,11 +10,14 @@ from core.models import *
 import random as rnd
 
 for i in range(3):
-    p = Passenger(is_validated=True, balance=rnd.randint(0, 100000), register_date=rnd.randint(1000000, 3000000), fid_card=rnd.randint(10000, 10000000))
+    p = Passenger(is_validated=True, balance=rnd.randint(0, 100000),
+                  register_date=rnd.randint(1000000, 3000000),
+                  fid_card=rnd.randint(10000, 10000000))
     p.save()
 
 for i in range(10):
-    t = Trace(cost=500*rnd.randint(3, 25), title=f'Маршрут № {rnd.randint(10, 100)}')
+    t = Trace(cost=500*rnd.randint(3, 25),
+              title=f'Маршрут № {rnd.randint(10, 100)}')
     t.save()
 
 

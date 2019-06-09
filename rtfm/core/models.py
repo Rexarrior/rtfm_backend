@@ -25,7 +25,6 @@ class DriveSession(models.Model):
     is_continues = models.BooleanField()
     trace_id = models.ForeignKey('Trace', on_delete=models.CASCADE, default=1)
 
-    
 
 class TransportType(models.Model):
     transport_type = models.CharField(max_length=50)

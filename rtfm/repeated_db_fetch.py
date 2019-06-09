@@ -60,20 +60,23 @@ def make_transactions():
             for j in range(10):
                 for i in range(rnd.randint(1, 4)):
                     value = session.trace_id.cost
+                    time = session.start_time - 86400 * j +\
+                                   rnd.randint(0, 36000)
+                    tran_id = (i * 10000) + rnd.randint(0, 10000000)
                     tran = Transaction(client_id=client,
-                                        session_id=session,
-                                        value=value,
-                                        time=session.start_time -86400*j + rnd.randint(0, 36000),
-                                        transaction_id=(i*10000 ) + rnd.randint(0, 10000000),
-                                        status=statuses[rnd.randint(0, 1)]
-                                        )
+                                       session_id=session,
+                                       value=value,
+                                       time=time,
+                                       transaction_id=tran_id,
+                                       status=statuses[rnd.randint(0, 1)]
+                                       )
                     tran.save()
 
 
 def erase_sessions_and_transactions():
     DriveSession.objects.all().delete()
     Transaction.objects.all().delete()
-    
+
 erase_sessions_and_transactions()
 make_sessions()
 make_transactions()
