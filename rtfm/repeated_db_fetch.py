@@ -55,22 +55,23 @@ def make_transactions():
     statuses = [Status.objects.get(status_name="Success"),
                 Status.objects.get(status_name="Failed")]
     sessions = DriveSession.objects.all()
-    for session in sessions:
-        for client in clients:
-            for j in range(10):
-                for i in range(rnd.randint(1, 4)):
-                    value = session.trace_id.cost
-                    time = session.start_time - 86400 * j +\
-                                   rnd.randint(0, 36000)
-                    tran_id = (i * 10000) + rnd.randint(0, 10000000)
-                    tran = Transaction(client_id=client,
-                                       session_id=session,
-                                       value=value,
-                                       time=time,
-                                       transaction_id=tran_id,
-                                       status=statuses[rnd.randint(0, 1)]
-                                       )
-                    tran.save()
+    
+    for client in clients:
+        for j in range(100):
+            for i in range(rnd.randint(1, 4)):
+                value = session.trace_id.cost
+                time = session.start_time - 86400 * j +\
+                                rnd.randint(0, 36000)
+                tran_id = (i * 10000) + rnd.randint(0, 10000000)
+                session = rnd.choice(sessions)
+                tran = Transaction(client_id=client,
+                                    session_id=session,
+                                    value=value,
+                                    time=time,
+                                    transaction_id=tran_id,
+                                    status=statuses[rnd.randint(0, 1)]
+                                    )
+                tran.save()
 
 
 def erase_sessions_and_transactions():
