@@ -46,12 +46,15 @@ def apply_payment(payment):
                                   value=value,
                                   time=int(time.time()),
                                   transaction_id=payment.TransactionID)
+        print(f'client id {transaction.client_id}')                                  
         if (transaction.client_id is not None):
             client = transaction.client_id
             if (not client.is_validated):
+                print('client is not validated')
                 transaction.status = statusMap['Failed'][0]
                 transaction.save()
                 return HttpResponseForbidden()
+            print(f'client balance changed for {transaction.value}')
             client.balance += transaction.value
             if client.balance < CLIENT_MIN_BALANCE:
                 client.is_validated = False
