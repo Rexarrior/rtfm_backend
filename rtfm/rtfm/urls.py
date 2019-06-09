@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import re_path, path
+from django.urls import re_path, path, include
 from core.views import *
 import core.views as v
 from django.conf import settings
@@ -34,5 +34,5 @@ urlpatterns = [
     path('api/refil', v.refil),
     path('', v.index_page),
     path('favicon.ico', v.favicon),
-    path(r'resources/<path:path>', v.static_delivery)
+    path(r'resources/<path:path>', v.static_delivery),
 ] 

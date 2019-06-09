@@ -35,23 +35,24 @@ def make_str_from_price(price):
 
 
 def apply_payment(payment):
-    if (Transaction.objects.filter(transaction_id=proto_paiment.TransactionID).exists()):
-        session = DriveSession.objects.get(tr_id=proto_paiment.TransportID,
+    if (Transaction.objects.filter(transaction_id=payment.TransactionID).\
+        exists()):
+        session = DriveSession.objects.get(tr_id=payment.TransportID,
                                            is_continues=True)
         value = Trace.objects.get(trace_id=session.trace_id).cost
-        client = Passenger.objects.get(client_id=proto_paiment.ClientID)
+        client = Passenger.objects.get(client_id=payment.ClientID)
         transaction = Transaction(client_id=client,
                                   session_id=session,
                                   value=value,
                                   time=int(time.time()),
-                                  transaction_id=proto_paiment.TransactionID)
+                                  transaction_id=payment.TransactionID)
         if (transaction.client_id is not None):
             client = Passenger.objects.get(client_id=transaction.client_id)
             if (not client.is_validate):
                 transaction.status = statusMap['Failed'][0]
                 transaction.save()
                 return HttpResponseForbidden()
-            client.balance += transaction.value            
+            client.balance += transaction.value
             if client.balance < CLIENT_MIN_BALANCE:
                 client.is_validate = False
             client.save()
@@ -98,7 +99,7 @@ def close_session(request):
 def get_valid_list(request):
     try:
         query = Passenger.objects.all()
-        ret = {q.client_id: q.is_validate for q in query}
+        ret = {q.client_id: q.is_validated for q in query}
         proto_ret = other_proto.ClientValidationList()
         proto_ret.Clients.update(ret)
         return HttpResponse(proto_ret.SerializeToString())
@@ -106,7 +107,6 @@ def get_valid_list(request):
         return HttpResponseBadRequest()
 
 
-@require_http_methods(["POST"])
 def transact(request):
     try:
         proto_paiment = other_proto.Payment()
@@ -121,7 +121,7 @@ def recent_payments(request):
     proto_request = proto_request.FromString(request.body)
     client_id = proto_request.client_id
     transactions = Transaction.objects.filter(client_id=client_id,
-                                                ).order_by('-time')
+                                              ).order_by('-time')
     resp = other_proto.RecentPaymentsResponce()
     i = 0
     print(f'id: {client_id};  len: {len(transactions)};')
@@ -167,19 +167,23 @@ def get_price(request):
 
 
 def index_page(request):
-    return FileResponse(open(os.path.join(BASE_DIR, r"static/rtfm_front/index.html"),
+    return FileResponse(open(os.path.join(BASE_DIR,
+                                          r"static/rtfm_front/index.html"),
                              'rb'))
 
 
 def favicon(request):
-    return FileResponse(open(os.path.join(BASE_DIR, r"static/rtfm_front/favicon.ico"),
+    return FileResponse(open(os.path.join(BASE_DIR,
+                                          r"static/rtfm_front/favicon.ico"),
                              'rb'))
 
 
 def static_delivery(request, path=""):
     print(f"serve static {path}")
     if os.path.isfile(BASE_DIR + 'static/rtfm_front/resources/' + path):
-        response = FileResponse(open(BASE_DIR+'static/rtfm_front/resources/' + path, 'rb'))
+        response = FileResponse(open(BASE_DIR +
+                                     'static/rtfm_front/resources/' +
+                                     path, 'rb'))
         if 'css'in path:
             response['Content-Type'] = 'text/css'
         if 'js' in path:
@@ -203,6 +207,8 @@ def refil(request):
     req = other_proto.RefilRequest()
     req = req.FromString(request)
     client = Passenger.objects.get(client_id=req.client_id)
-    client.value += req.value
+    client.balance += req.value
+    if (clien.balance > CLIENT_MIN_BALANCE):
+        client.is_validated = True
     client.save()
     return HttpResponse()
