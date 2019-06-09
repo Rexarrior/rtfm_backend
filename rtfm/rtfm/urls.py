@@ -24,12 +24,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/close_session/', v.close_session),
     path('api/open_session/', v.open_session),
-    path('api/get_valid_list/', v.get_valid_list),
+    path('api/valid_list/', v.get_valid_list),
     path('api/transact', v.transact),
     path('api/close_session/', v.close_session),
     path('api/recent_payments', v.recent_payments),
     path('api/user_info', v.recent_payments),
     path('api/price', v.get_price),
+    path('api/sync_transactions', v.sync_payments),
+    path('api/refil', v.refil),
     path('', v.index_page),
+    path('favicon.ico', v.favicon),
     path(r'resources/<path:path>', v.static_delivery)
 ] 

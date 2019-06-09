@@ -21,7 +21,7 @@ class DriveSession(models.Model):
     tr_id = models.ForeignKey('Transport',
                               on_delete=models.CASCADE)
     start_time = models.PositiveIntegerField()
-    end_time = models.PositiveIntegerField()
+    end_time = models.PositiveIntegerField(null=True)
     is_continues = models.BooleanField()
     trace_id = models.ForeignKey('Trace', on_delete=models.CASCADE, default=1)
 
@@ -57,3 +57,4 @@ class Trace(models.Model):
 class Status(models.Model):
     status_name = models.CharField(max_length=50)
 
+# 

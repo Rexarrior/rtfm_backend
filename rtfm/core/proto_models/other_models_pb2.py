@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x12other_models.proto\x1a\x0f\x64\x62_models.proto\"{\n\x14\x43lientValidationList\x12\x33\n\x07\x43lients\x18\x01 \x03(\x0b\x32\".ClientValidationList.ClientsEntry\x1a.\n\x0c\x43lientsEntry\x12\x0b\n\x03key\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\"G\n\x07Payment\x12\x10\n\x08\x43lientID\x18\x01 \x01(\x03\x12\x15\n\rTransactionID\x18\x02 \x01(\x03\x12\x13\n\x0bTransportID\x18\x03 \x01(\x03\"\x81\x01\n\x10\x43ompletedPayment\x12\r\n\x05price\x18\x01 \x01(\t\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.TransportType\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\x05\x12\n\n\x02id\x18\x05 \x01(\x03\x12\x17\n\x06status\x18\x06 \x01(\x0e\x32\x07.Status\"*\n\x15RecentPaymentsRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"=\n\x16RecentPaymentsResponce\x12#\n\x08Payments\x18\x01 \x03(\x0b\x32\x11.CompletedPayment\"$\n\x0fUserInfoRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"y\n\x10UserInfoResponse\x12+\n\x06status\x18\x01 \x01(\x0e\x32\x1b.UserInfoResponse.PayStatus\x12\x0f\n\x07\x62\x61lance\x18\x02 \x01(\t\"\'\n\tPayStatus\x12\r\n\tAvailable\x10\x00\x12\x0b\n\x07\x42locked\x10\x01\"O\n\x12SessionOpenRequest\x12\x11\n\tdriver_id\x18\x01 \x01(\x05\x12\x14\n\x0ctransport_id\x18\x02 \x01(\x05\x12\x10\n\x08trace_id\x18\x03 \x01(\x05\")\n\x13SessionOpenResponce\x12\x12\n\nsession_id\x18\x01 \x01(\x05\")\n\x13SessionCloseRequest\x12\x12\n\nsession_id\x18\x01 \x01(\x05\"\'\n\x0fGetPriceRequest\x12\x14\n\x0ctransport_id\x18\x01 \x01(\x05\"!\n\x10GetPriceResponse\x12\r\n\x05Price\x18\x01 \x01(\tb\x06proto3')
+  serialized_pb=_b('\n\x12other_models.proto\x1a\x0f\x64\x62_models.proto\"{\n\x14\x43lientValidationList\x12\x33\n\x07\x43lients\x18\x01 \x03(\x0b\x32\".ClientValidationList.ClientsEntry\x1a.\n\x0c\x43lientsEntry\x12\x0b\n\x03key\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\"G\n\x07Payment\x12\x10\n\x08\x43lientID\x18\x01 \x01(\x03\x12\x15\n\rTransactionID\x18\x02 \x01(\x03\x12\x13\n\x0bTransportID\x18\x03 \x01(\x03\"\x81\x01\n\x10\x43ompletedPayment\x12\r\n\x05price\x18\x01 \x01(\t\x12\x1c\n\x04type\x18\x02 \x01(\x0e\x32\x0e.TransportType\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\x05\x12\n\n\x02id\x18\x05 \x01(\x03\x12\x17\n\x06status\x18\x06 \x01(\x0e\x32\x07.Status\"*\n\x15RecentPaymentsRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"=\n\x16RecentPaymentsResponce\x12#\n\x08Payments\x18\x01 \x03(\x0b\x32\x11.CompletedPayment\"$\n\x0fUserInfoRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"y\n\x10UserInfoResponse\x12+\n\x06status\x18\x01 \x01(\x0e\x32\x1b.UserInfoResponse.PayStatus\x12\x0f\n\x07\x62\x61lance\x18\x02 \x01(\t\"\'\n\tPayStatus\x12\r\n\tAvailable\x10\x00\x12\x0b\n\x07\x42locked\x10\x01\"O\n\x12SessionOpenRequest\x12\x11\n\tdriver_id\x18\x01 \x01(\x05\x12\x14\n\x0ctransport_id\x18\x02 \x01(\x05\x12\x10\n\x08trace_id\x18\x03 \x01(\x05\")\n\x13SessionOpenResponce\x12\x12\n\nsession_id\x18\x01 \x01(\x05\")\n\x13SessionCloseRequest\x12\x12\n\nsession_id\x18\x01 \x01(\x05\"\'\n\x0fGetPriceRequest\x12\x14\n\x0ctransport_id\x18\x01 \x01(\x05\"!\n\x10GetPriceResponse\x12\r\n\x05Price\x18\x01 \x01(\t\"4\n\x16TransactionSyncRequest\x12\x1a\n\x08Payments\x18\x01 \x03(\x0b\x32\x08.Payment\"0\n\x0cRefilRequest\x12\x11\n\tclient_id\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\x05\x62\x06proto3')
   ,
   dependencies=[db__models__pb2.DESCRIPTOR,])
 
@@ -529,6 +529,75 @@ _GETPRICERESPONSE = _descriptor.Descriptor(
   serialized_end=878,
 )
 
+
+_TRANSACTIONSYNCREQUEST = _descriptor.Descriptor(
+  name='TransactionSyncRequest',
+  full_name='TransactionSyncRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='Payments', full_name='TransactionSyncRequest.Payments', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=880,
+  serialized_end=932,
+)
+
+
+_REFILREQUEST = _descriptor.Descriptor(
+  name='RefilRequest',
+  full_name='RefilRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='client_id', full_name='RefilRequest.client_id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='RefilRequest.value', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=934,
+  serialized_end=982,
+)
+
 _CLIENTVALIDATIONLIST_CLIENTSENTRY.containing_type = _CLIENTVALIDATIONLIST
 _CLIENTVALIDATIONLIST.fields_by_name['Clients'].message_type = _CLIENTVALIDATIONLIST_CLIENTSENTRY
 _COMPLETEDPAYMENT.fields_by_name['type'].enum_type = db__models__pb2._TRANSPORTTYPE
@@ -536,6 +605,7 @@ _COMPLETEDPAYMENT.fields_by_name['status'].enum_type = db__models__pb2._STATUS
 _RECENTPAYMENTSRESPONCE.fields_by_name['Payments'].message_type = _COMPLETEDPAYMENT
 _USERINFORESPONSE.fields_by_name['status'].enum_type = _USERINFORESPONSE_PAYSTATUS
 _USERINFORESPONSE_PAYSTATUS.containing_type = _USERINFORESPONSE
+_TRANSACTIONSYNCREQUEST.fields_by_name['Payments'].message_type = _PAYMENT
 DESCRIPTOR.message_types_by_name['ClientValidationList'] = _CLIENTVALIDATIONLIST
 DESCRIPTOR.message_types_by_name['Payment'] = _PAYMENT
 DESCRIPTOR.message_types_by_name['CompletedPayment'] = _COMPLETEDPAYMENT
@@ -548,6 +618,8 @@ DESCRIPTOR.message_types_by_name['SessionOpenResponce'] = _SESSIONOPENRESPONCE
 DESCRIPTOR.message_types_by_name['SessionCloseRequest'] = _SESSIONCLOSEREQUEST
 DESCRIPTOR.message_types_by_name['GetPriceRequest'] = _GETPRICEREQUEST
 DESCRIPTOR.message_types_by_name['GetPriceResponse'] = _GETPRICERESPONSE
+DESCRIPTOR.message_types_by_name['TransactionSyncRequest'] = _TRANSACTIONSYNCREQUEST
+DESCRIPTOR.message_types_by_name['RefilRequest'] = _REFILREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ClientValidationList = _reflection.GeneratedProtocolMessageType('ClientValidationList', (_message.Message,), {
@@ -641,6 +713,20 @@ GetPriceResponse = _reflection.GeneratedProtocolMessageType('GetPriceResponse', 
   # @@protoc_insertion_point(class_scope:GetPriceResponse)
   })
 _sym_db.RegisterMessage(GetPriceResponse)
+
+TransactionSyncRequest = _reflection.GeneratedProtocolMessageType('TransactionSyncRequest', (_message.Message,), {
+  'DESCRIPTOR' : _TRANSACTIONSYNCREQUEST,
+  '__module__' : 'other_models_pb2'
+  # @@protoc_insertion_point(class_scope:TransactionSyncRequest)
+  })
+_sym_db.RegisterMessage(TransactionSyncRequest)
+
+RefilRequest = _reflection.GeneratedProtocolMessageType('RefilRequest', (_message.Message,), {
+  'DESCRIPTOR' : _REFILREQUEST,
+  '__module__' : 'other_models_pb2'
+  # @@protoc_insertion_point(class_scope:RefilRequest)
+  })
+_sym_db.RegisterMessage(RefilRequest)
 
 
 _CLIENTVALIDATIONLIST_CLIENTSENTRY._options = None

@@ -30,6 +30,24 @@ def make_sessions():
                 session.save()
 
 
+def make_active_session():
+    drivers = Driver.objects.all()
+    transports = Transport.objects.all()
+    clients = Passenger.objects.all()
+    statuses = [Status.objects.get(status_name="Success"),
+                Status.objects.get(status_name="Failed")]
+    traces = Trace.objects.all()
+    driver = rnd.choice(drivers)
+    transport = rnd.choice(transports)
+    trace = rnd.choice(traces)
+    session = DriveSession(driver_id=driver, tr_id=transport,
+                           trace_id=trace, start_time=int(time.time()),
+                           is_continues=True
+                           )
+    print(session)
+    session.save()
+    
+
 def make_transactions():
     drivers = Driver.objects.all()
     transports = Transport.objects.all()
@@ -51,5 +69,12 @@ def make_transactions():
                                         )
                     tran.save()
 
+
+def erase_sessions_and_transactions():
+    DriveSession.objects.all().delete()
+    Transaction.objects.all().delete()
+    
+erase_sessions_and_transactions()
 make_sessions()
 make_transactions()
+make_active_session()

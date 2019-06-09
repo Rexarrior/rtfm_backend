@@ -33,6 +33,33 @@ payStatusMap = {
 def make_str_from_price(price):
     return f'{int(price / 100)} руб. {price % 100} коп.'
 
+
+def apply_payment(payment):
+    if (Transaction.objects.filter(transaction_id=proto_paiment.TransactionID).exists()):
+        session = DriveSession.objects.get(tr_id=proto_paiment.TransportID,
+                                           is_continues=True)
+        value = Trace.objects.get(trace_id=session.trace_id).cost
+        client = Passenger.objects.get(client_id=proto_paiment.ClientID)
+        transaction = Transaction(client_id=client,
+                                  session_id=session,
+                                  value=value,
+                                  time=int(time.time()),
+                                  transaction_id=proto_paiment.TransactionID)
+        if (transaction.client_id is not None):
+            client = Passenger.objects.get(client_id=transaction.client_id)
+            if (not client.is_validate):
+                transaction.status = statusMap['Failed'][0]
+                transaction.save()
+                return HttpResponseForbidden()
+            client.balance += transaction.value            
+            if client.balance < CLIENT_MIN_BALANCE:
+                client.is_validate = False
+            client.save()
+            transaction.status = statusMap['Success'][0]
+            transaction.save()
+            return HttpResponse()
+
+
 def open_session(request):
     try:
         req = other_proto.SessionOpenRequest()
@@ -71,7 +98,7 @@ def close_session(request):
 def get_valid_list(request):
     try:
         query = Passenger.objects.all()
-        ret = {q['client_id']: q['is_validate'] for q in query}
+        ret = {q.client_id: q.is_validate for q in query}
         proto_ret = other_proto.ClientValidationList()
         proto_ret.Clients.update(ret)
         return HttpResponse(proto_ret.SerializeToString())
@@ -84,30 +111,7 @@ def transact(request):
     try:
         proto_paiment = other_proto.Payment()
         proto_paiment = proto_paiment.FromString(request.body)
-        if (Transaction.objects.filter(transaction_id=proto_paiment.TransactionID).exists()):
-            return HttpResponse(status=200)
-
-        session = DriveSession.objects.get(tr_id=proto_paiment.TransportID,
-                                           is_continues=True)
-        value = Trace.objects.get(trace_id=session.trace_id).cost
-        client = Passenger.objects.get(client_id=proto_paiment.ClientID)
-        transaction = Transaction(client_id=client,
-                                  session_id=session,
-                                  value=value,
-                                  time=int(time.time()),
-                                  transaction_id=proto_paiment.TransactionID)
-        if (transaction.client_id is not None):
-            client = Passenger.objects.get(client_id=transaction.client_id)
-            if (not client.is_validate):
-                transaction.status = statusMap['Failed'][0]
-                transaction.save()
-                return HttpResponseForbidden()
-            client.balance += transaction.value            
-            if client.balance < CLIENT_MIN_BALANCE:
-                client.is_validate = False
-            client.save()
-            transaction.status = statusMap['Success'][0]
-            transaction.save()
+        return apply_payment(proto_paiment)
     except KeyError:
         return HttpResponseBadRequest()
 
@@ -167,6 +171,11 @@ def index_page(request):
                              'rb'))
 
 
+def favicon(request):
+    return FileResponse(open(os.path.join(BASE_DIR, r"static/rtfm_front/favicon.ico"),
+                             'rb'))
+
+
 def static_delivery(request, path=""):
     print(f"serve static {path}")
     if os.path.isfile(BASE_DIR + 'static/rtfm_front/resources/' + path):
@@ -180,3 +189,20 @@ def static_delivery(request, path=""):
         response = HttpResponseNotFound()
     return response
 
+
+
+def sync_payments(request):
+    req = other_proto.TransactionSyncRequest()
+    req = req.FromString(request)
+    for payment in req.Payments:
+        apply_payment(payment)
+    return HttpResponse()
+
+
+def refil(request):
+    req = other_proto.RefilRequest()
+    req = req.FromString(request)
+    client = Passenger.objects.get(client_id=req.client_id)
+    client.value += req.value
+    client.save()
+    return HttpResponse()
