@@ -130,11 +130,15 @@ def recent_payments(request):
         session = tran.session_id
         transport = session.tr_id
         trace = session.trace_id
+        taxy_type = TransportType.objects.get(transport_type='Taxy')
+        title = trace.title
+        if (transport.transportType == taxy_type):
+            title = "Такси"
         resp.Payments[i].date = tran.time
         resp.Payments[i].id = tran.transaction_id
         resp.Payments[i].status = statusMap[tran.status.status_name][1]
         resp.Payments[i].type = transportTypeMap[transport.transportType.transport_type][1]
-        resp.Payments[i].title = trace.title
+        resp.Payments[i].title = title
         resp.Payments[i].price = make_str_from_price(trace.cost)
         i += 1
     s = resp.SerializeToString()
