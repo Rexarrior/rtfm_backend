@@ -39,7 +39,7 @@ def apply_payment(payment):
             exists()):
         session = DriveSession.objects.get(tr_id=payment.TransportID,
                                            is_continues=True)
-        value = session.trace_id.cost
+        value = -session.trace_id.cost
         client = Passenger.objects.get(client_id=payment.ClientID)
         transaction = Transaction(client_id=client,
                                   session_id=session,
