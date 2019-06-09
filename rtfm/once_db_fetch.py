@@ -13,8 +13,9 @@ for i in range(3):
     p = Passenger(is_validated=True, balance=rnd.randint(0, 1000), register_date=rnd.randint(1000000, 3000000), fid_card=rnd.randint(10000, 10000000))
     p.save()
 
-t = Trace(cost=100, title='Маршрут № 40')
-t.save()
+for i in range(10):
+    t = Trace(cost=5*rnd.randint(3, 25), title=f'Маршрут № {rnd.randint(10, 100)}')
+    t.save()
 
 
 T = TransportType(transport_type="Bus")
