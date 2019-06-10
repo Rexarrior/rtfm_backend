@@ -189,10 +189,10 @@ def favicon(request):
 
 def static_delivery(request, path=""):
     print(f"serve static {path}")
-    if os.path.isfile(BASE_DIR + 'static/rtfm_front/resources/' + path):
-        response = FileResponse(open(BASE_DIR +
+    if os.path.isfile(os.path.join(BASE_DIR ,'static/rtfm_front/resources/',path)):
+        response = FileResponse(open(os.path.join(BASE_DIR +
                                      'static/rtfm_front/resources/' +
-                                     path, 'rb'))
+                                     path), 'rb'))
         if 'css'in path:
             response['Content-Type'] = 'text/css'
         if 'js' in path:
